@@ -1920,19 +1920,13 @@
           };
 
 
-        activeRecorder.onstop =
-          function() {
-
+        activeRecorder.onstop = function() {
             finishRecording(
               questionId,
               stream
             );
-
-          };
-
-
+        };
         activeRecorder.start();
-
 
         // ----------------------------------------------------
         // UI
@@ -2034,9 +2028,7 @@
         .getTracks()
         .forEach(
           function(track) {
-
             track.stop();
-
           }
         );
 
@@ -2045,25 +2037,15 @@
       // Create playback
       // --------------------------------------------------------
 
-      const audio =
-        document.getElementById(
+      const audio = document.getElementById(
           'audio-' + questionId
         );
 
-
-      const audioUrl =
-        URL.createObjectURL(
+      const audioUrl = URL.createObjectURL(
           blob
         );
-
-
-      audio.src =
-        audioUrl;
-
-
-      audio.style.display =
-        'block';
-
+      audio.src = audioUrl;
+      audio.style.display = 'block';
 
       // --------------------------------------------------------
       // Convert audio → Base64
@@ -2338,139 +2320,98 @@
     // SPEECH RECOGNITION
     // ============================================================
 
-    function startSpeechRecognition(
-      questionId
-    ) {
-
-      if (!SpeechRecognition) {
-
-        console.warn(
-          'Speech Recognition tidak didukung browser.'
-        );
-
+function startSpeechRecognition(questionId) {
+    const status = document.getElementById('voice-status-' + questionId);
+    if (!SpeechRecognition) {
+        console.warn('Speech Recognition tidak didukung browser.');
+        if (status) {
+            status.textContent = '⚠️ Browser tidak mendukung Speech-to-Text.';
+        }
         return;
+    }
+    if (status) {
+        status.textContent = '🎙️ Mendengarkan suara...';
+    }
 
-      }
+    const textarea = document.getElementById( 'transcript-' + questionId );  
+    if (textarea) { 
+      textarea.value = '';
+    }    
+    transcripts[questionId] = '';    
+    recognitionQuestion = questionId;
+    recognitionFinalText = '';
+    recognitionInterimText = '';
 
-
-      recognitionQuestion =
-        questionId;
-
-
-      recognitionFinalText =
-        '';
-
-
-      recognitionInterimText =
-        '';
-
-
-      recognition =
-        new SpeechRecognition();
-
-
-      recognition.lang =
-        'id-ID';
-
-
-      recognition.continuous =
-        true;
-
-
-      recognition.interimResults =
-        true;
-
-
-      recognition.maxAlternatives =
-        1;
-
-
-      recognition.onresult =
-        function(event) {
-
-          let finalText =
-            recognitionFinalText;
-
-
-          let interimText =
-            '';
-
-
-          for (
-            let i =
-              event.resultIndex; i <
-            event.results.length; i++
-          ) {
-
-            const result =
-              event.results[i];
-
-
-            const text =
-              result[0]
-              .transcript;
-
-
+      recognition = new SpeechRecognition();
+      recognition.lang = 'id-ID';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+      recognition.onresult = function(event) {
+          let finalText = recognitionFinalText;
+          let interimText = '';
+          for ( let i = event.resultIndex; i < event.results.length; i++ ) {
+            const result = event.results[i];
+            const text = result[0].transcript;
             if (
               result.isFinal
             ) {
-
-              finalText +=
-                text + ' ';
-
+              finalText += text + ' ';
             } else {
-
-              interimText +=
-                text;
-
+              interimText += text;
             }
-
           }
 
-
-          recognitionFinalText =
-            finalText;
-
-
-          recognitionInterimText =
-            interimText;
-
-
-          const textarea =
-            document.getElementById(
+          recognitionFinalText = finalText;
+          recognitionInterimText = interimText;
+          const textarea = document.getElementById(
               'transcript-' +
               questionId
             );
 
-
           if (textarea) {
-
             textarea.value =
               (
                 recognitionFinalText +
                 recognitionInterimText
               ).trim();
-
-
+            
             transcripts[
                 questionId
-              ] =
-              textarea.value;
-
+              ] = textarea.value;
           }
-
         };
 
 
-      recognition.onerror =
-        function(event) {
+recognition.onerror = function(event) {
+    console.warn(
+        'Speech recognition error:', event.error
+    );
 
-          console.warn(
-            'Speech recognition error:',
-            event.error
-          );
+    const status = document.getElementById(
+            'voice-status-' + questionId
+        );
 
-        };
+    if (!status) {
+        return;
+    }
+
+    switch (event.error) {
+        case 'not-allowed':
+            status.textContent = '⚠️ Akses microphone / speech recognition ditolak browser.';
+            break;
+        case 'audio-capture':
+            status.textContent = '⚠️ Microphone tidak dapat digunakan.';
+            break;
+        case 'no-speech':
+            status.textContent = '🎙️ Tidak ada suara terdeteksi.';
+            break;
+        case 'network':
+            status.textContent = '⚠️ Speech recognition membutuhkan koneksi internet.';
+            break;
+        default: status.textContent = '⚠️ Speech recognition error: ' + event.error;
+    }
+};
 
 
       recognition.onend =
@@ -2545,14 +2486,18 @@
 
       }
 
-
-      recognition =
-        null;
-
-
-      recognitionQuestion =
-        null;
-
+      const questionId = recognitionQuestion;      
+      if (questionId) {      
+          const status = document.getElementById(
+                  'voice-status-' + questionId
+              );      
+          if (status) {
+              status.textContent = '⏳ Menyelesaikan transkripsi...';
+          }
+      }
+      
+      recognition = null;
+      recognitionQuestion = null;
     }
 
 
