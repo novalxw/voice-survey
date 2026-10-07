@@ -1,1308 +1,2942 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voice Survey</title>
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 20px;
-    background: #f4f6f8;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #222;
-}
 
-.container {
-    max-width: 650px;
-    margin: auto;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 5px 25px rgba(0,0,0,.08);
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klik Star Interview</title>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
 
-h1 {
-    text-align: center;
-}
+    body {
+      margin: 0;
+      padding: 0;
 
-.description {
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
-}
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
 
-.form-group {
-    margin-bottom: 25px;
-}
+    .container {
+      width: 100%;
+      max-width: 900px;
 
+      margin: 0 auto;
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
+      padding: 30px 20px 60px;
+    }
 
-input,textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
 
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
+    .header {
+      background: white;
 
+      border-radius: 16px;
 
-.question {
+      padding: 30px;
 
-    border-top: 1px solid #eee;
+      margin-bottom: 20px;
 
-    padding-top: 20px;
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+    }
 
-    margin-top: 20px;
-}
 
-.record-box {
-    margin-top: 12px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 12px;
-}
+    .header h1 {
+      margin: 0 0 8px;
 
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 18px;
-    font-size: 15px;
-    cursor: pointer;
-}
+      font-size: 28px;
+    }
 
-.record-btn {
-    background: #dc3545;
-    color: white;
-}
 
-.stop-btn {
-    background: #343a40;
-    color: white;
-}
+    .header p {
+      margin: 0;
 
+      color: #666;
 
-button:disabled {
+      line-height: 1.6;
+    }
 
-    opacity: .45;
 
-    cursor: not-allowed;
+    .respondent-card {
+      background: white;
 
-}
+      border-radius: 16px;
 
+      padding: 25px;
 
-.timer {
+      margin-bottom: 20px;
 
-    margin-top: 10px;
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+    }
 
-    font-weight: bold;
 
-    color: #dc3545;
+    .respondent-card h2 {
+      margin-top: 0;
+    }
 
-}
 
+    label {
+      display: block;
 
-.status {
+      font-weight: 600;
 
-    margin-top: 8px;
+      margin-bottom: 7px;
+    }
 
-    color: #666;
 
-}
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    textarea,
+    select {
 
+      width: 100%;
 
-audio {
+      padding: 12px 14px;
 
-    width: 100%;
+      border: 1px solid #d5d9de;
 
-    margin-top: 12px;
+      border-radius: 9px;
 
-}
+      font-size: 15px;
 
+      outline: none;
 
-.submit-btn {
-
-    width: 100%;
-
-    margin-top: 25px;
-
-    padding: 15px;
-
-    background: #198754;
-
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-}
-
-
-.message {
-
-    display: none;
-
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border-radius: 8px;
-
-    text-align: center;
-
-}
-
-
-.success {
-
-    display: block;
-
-    background: #d1e7dd;
-
-    color: #0f5132;
-
-}
-
-
-.error {
-
-    display: block;
-
-    background: #f8d7da;
-
-    color: #842029;
-
-}
-
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-<h1>🎙️ Voice Survey</h1>
-
-
-<div class="description">
-
-Kami ingin mendengar pengalaman Anda.
-
-Silakan jawab pertanyaan berikut.
-
-</div>
-
-
-<!-- NAME -->
-
-<div class="form-group">
-
-<label>Nama *</label>
-
-<input
-    type="text"
-    id="name"
-    placeholder="Masukkan nama Anda"
->
-
-
-</div>
-
-
-<!-- EMAIL -->
-
-<div class="form-group">
-
-<label>
-
-Email
-
-<span style="font-weight:normal;color:#777">
-
-(op­sional)
-
-</span>
-
-</label>
-
-<input
-    type="email"
-    id="email"
-    placeholder="nama@email.com"
->
-
-</div>
-
-
-<!-- ========================== -->
-<!-- QUESTION 1 -->
-<!-- ========================== -->
-
-<div class="question">
-
-<div class="form-group">
-
-<label>
-1. Bagaimana pengalaman Anda menggunakan produk kami?
-</label>
-
-
-<textarea
-    id="q1"
-    placeholder="Anda dapat mengetik atau memberikan jawaban suara."
-></textarea>
-
-
-<div class="record-box">
-
-<button
-    type="button"
-    class="record-btn"
-    id="recordBtn1"
-    onclick="startRecording(1)"
->
-
-🎙️ Mulai Rekam
-
-</button>
-
-
-<button
-    type="button"
-    class="stop-btn"
-    id="stopBtn1"
-    onclick="stopRecording(1)"
-    disabled
->
-
-⏹️ Stop
-
-</button>
-
-
-<div
-    class="timer"
-    id="timer1"
->
-
-00:00
-
-</div>
-
-
-<div
-    class="status"
-    id="status1"
->
-
-Belum ada rekaman
-
-</div>
-
-
-<audio
-    id="audio1"
-    controls
-    style="display:none"
-></audio>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ========================== -->
-<!-- QUESTION 2 -->
-<!-- ========================== -->
-
-<div class="question">
-
-<div class="form-group">
-
-<label>
-2. Apa hal yang paling Anda sukai?
-</label>
-
-
-<textarea
-    id="q2"
-    placeholder="Anda dapat mengetik atau memberikan jawaban suara."
-></textarea>
-
-
-<div class="record-box">
-
-<button
-    type="button"
-    class="record-btn"
-    id="recordBtn2"
-    onclick="startRecording(2)"
->
-
-🎙️ Mulai Rekam
-
-</button>
-
-
-<button
-    type="button"
-    class="stop-btn"
-    id="stopBtn2"
-    onclick="stopRecording(2)"
-    disabled
->
-
-⏹️ Stop
-
-</button>
-
-
-<div
-    class="timer"
-    id="timer2"
->
-
-00:00
-
-</div>
-
-
-<div
-    class="status"
-    id="status2"
->
-
-Belum ada rekaman
-
-</div>
-
-
-<audio
-    id="audio2"
-    controls
-    style="display:none"
-></audio>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ========================== -->
-<!-- QUESTION 3 -->
-<!-- ========================== -->
-
-<div class="question">
-
-<div class="form-group">
-
-<label>
-3. Apa yang menurut Anda perlu kami perbaiki?
-</label>
-
-
-<textarea
-    id="q3"
-    placeholder="Anda dapat mengetik atau memberikan jawaban suara."
-></textarea>
-
-
-<div class="record-box">
-
-<button
-    type="button"
-    class="record-btn"
-    id="recordBtn3"
-    onclick="startRecording(3)"
->
-
-🎙️ Mulai Rekam
-
-</button>
-
-
-<button
-    type="button"
-    class="stop-btn"
-    id="stopBtn3"
-    onclick="stopRecording(3)"
-    disabled
->
-
-⏹️ Stop
-
-</button>
-
-
-<div
-    class="timer"
-    id="timer3"
->
-
-00:00
-
-</div>
-
-
-<div
-    class="status"
-    id="status3"
->
-
-Belum ada rekaman
-
-</div>
-
-
-<audio
-    id="audio3"
-    controls
-    style="display:none"
-></audio>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<button
-    type="button"
-    class="submit-btn"
-    id="submitBtn"
-    onclick="submitSurvey()"
->
-
-📤 Kirim Survey
-
-</button>
-
-
-<div
-    id="message"
-    class="message"
-></div>
-
-
-</div>
-
-
-<script>
-
-
-// =================================================
-// CONFIG
-// =================================================
-
-
-// PENTING!
-// GANTI dengan URL Web App Apps Script Anda.
-
-const API_URL = 'https://script.google.com/macros/s/AKfycbzvnSPZ1itPqYNDQSR3wtndMAotrZKBFpjytelnyRE3QEgO9JQZvQWtp4BkPS1JfQjIyQ/exec';
-    
-// Maximum recording
-// 120 seconds = 2 minutes
-const MAX_RECORDING_SECONDS = 120;
-
-
-// =================================================
-// VARIABLES
-// =================================================
-
-const recordings = {
-
-    1: null,
-    2: null,
-    3: null
-
-};
-
-
-const recorders = {
-
-    1: null,
-    2: null,
-    3: null
-
-};
-
-
-const streams = {
-
-    1: null,
-    2: null,
-    3: null
-
-};
-
-
-const chunks = {
-
-    1: [],
-    2: [],
-    3: []
-
-};
-
-
-const timers = {
-
-    1: null,
-    2: null,
-    3: null
-
-};
-
-
-const startTimes = {
-
-    1: null,
-    2: null,
-    3: null
-
-};
-
-
-let activeQuestion = null;
-
-
-// =================================================
-// START RECORDING
-// =================================================
-
-async function startRecording(
-    question
-) {
-
-
-    // Prevent simultaneous recordings
-
-    if (
-        activeQuestion !== null
-    ) {
-
-        alert(
-            'Hentikan rekaman yang sedang berjalan terlebih dahulu.'
-        );
-
-        return;
+      background: white;
 
     }
 
 
-    // Browser support
+    input:focus,
+    textarea:focus,
+    select:focus {
 
-    if (
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-    ) {
-
-        alert(
-            'Browser Anda tidak mendukung microphone recording.'
-        );
-
-        return;
+      border-color: #555;
 
     }
 
 
-    try {
+    textarea {
 
+      min-height: 100px;
 
-        // Request microphone
-
-        const stream =
-            await navigator.mediaDevices.getUserMedia({
-                audio: true
-            });
-
-
-        streams[question] =
-            stream;
-
-
-        // MIME type
-
-        let mimeType =
-            'audio/webm';
-
-
-        if (
-            !MediaRecorder.isTypeSupported(
-                'audio/webm'
-            )
-        ) {
-
-            if (
-                MediaRecorder.isTypeSupported(
-                    'audio/mp4'
-                )
-            ) {
-
-                mimeType =
-                    'audio/mp4';
-
-            }
-
-        }
-
-
-        // Recorder
-
-        const recorder =
-            new MediaRecorder(
-                stream,
-                {
-                    mimeType:
-                        mimeType
-                }
-            );
-
-
-        recorders[question] =
-            recorder;
-
-
-        chunks[question] =
-            [];
-
-
-        activeQuestion =
-            question;
-
-
-        // Data available
-
-        recorder.ondataavailable =
-            function(event) {
-
-                if (
-                    event.data.size > 0
-                ) {
-
-                    chunks[question]
-                        .push(
-                            event.data
-                        );
-
-                }
-
-            };
-
-
-        // Stop event
-
-        recorder.onstop =
-            function() {
-
-
-                const blob =
-                    new Blob(
-                        chunks[question],
-                        {
-                            type:
-                                mimeType
-                        }
-                    );
-
-
-                recordings[question] =
-                    blob;
-
-
-                const audio =
-                    document.getElementById(
-                        'audio' + question
-                    );
-
-
-                audio.src =
-                    URL.createObjectURL(
-                        blob
-                    );
-
-
-                audio.style.display =
-                    'block';
-
-
-                document.getElementById(
-                    'status' + question
-                ).innerText =
-                    '✅ Rekaman siap dikirim';
-
-
-                clearInterval(
-                    timers[question]
-                );
-
-
-                if (
-                    streams[question]
-                ) {
-
-                    streams[question]
-                        .getTracks()
-                        .forEach(
-                            track =>
-                                track.stop()
-                        );
-
-                }
-
-
-                activeQuestion =
-                    null;
-
-            };
-
-
-        // Start
-
-        recorder.start();
-
-
-        startTimes[question] =
-            Date.now();
-
-
-        // Buttons
-
-        document.getElementById(
-            'recordBtn' + question
-        ).disabled = true;
-
-
-        document.getElementById(
-            'stopBtn' + question
-        ).disabled = false;
-
-
-        document.getElementById(
-            'status' + question
-        ).innerText =
-            '🔴 Sedang merekam...';
-
-
-        // Timer
-
-        timers[question] =
-            setInterval(
-                function() {
-
-
-                    const elapsed =
-                        Math.floor(
-
-                            (
-                                Date.now() -
-                                startTimes[question]
-
-                            ) / 1000
-
-                        );
-
-
-                    const minutes =
-                        String(
-                            Math.floor(
-                                elapsed / 60
-                            )
-                        ).padStart(
-                            2,
-                            '0'
-                        );
-
-
-                    const seconds =
-                        String(
-                            elapsed % 60
-                        ).padStart(
-                            2,
-                            '0'
-                        );
-
-
-                    document.getElementById(
-                        'timer' + question
-                    ).innerText =
-
-                        minutes +
-                        ':' +
-                        seconds;
-
-
-                    // Automatic stop
-
-                    if (
-                        elapsed >=
-                        MAX_RECORDING_SECONDS
-                    ) {
-
-                        stopRecording(
-                            question
-                        );
-
-                    }
-
-
-                },
-                1000
-            );
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        alert(
-            'Microphone tidak dapat diakses.\n\n' +
-            'Pastikan Anda memberikan izin microphone kepada browser.'
-        );
-
-    }
-
-}
-
-
-// =================================================
-// STOP RECORDING
-// =================================================
-
-function stopRecording(
-    question
-) {
-
-
-    const recorder =
-        recorders[question];
-
-
-    if (
-        recorder &&
-        recorder.state !== 'inactive'
-    ) {
-
-        recorder.stop();
+      resize: vertical;
 
     }
 
 
-    document.getElementById(
-        'recordBtn' + question
-    ).disabled = false;
+    .section {
+
+      background: white;
+
+      border-radius: 16px;
+
+      padding: 25px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+
+    }
 
 
-    document.getElementById(
-        'stopBtn' + question
-    ).disabled = true;
+    .section-title {
 
-}
+      font-size: 22px;
 
+      font-weight: 700;
 
-// =================================================
-// BLOB → BASE64
-// =================================================
+      margin-bottom: 25px;
 
-function blobToBase64(
-    blob
-) {
+      padding-bottom: 12px;
 
-    return new Promise(
-        function(
-            resolve,
-            reject
-        ) {
+      border-bottom: 2px solid #eee;
+
+    }
 
 
-            const reader =
-                new FileReader();
+    .question {
+
+      margin-bottom: 30px;
+
+    }
 
 
-            reader.onloadend =
-                function() {
+    .question-number {
+
+      font-size: 14px;
+
+      color: #777;
+
+      margin-bottom: 6px;
+
+    }
 
 
-                    const result =
-                        reader.result;
+    .question-text {
+
+      font-size: 17px;
+
+      font-weight: 600;
+
+      line-height: 1.5;
+
+      margin-bottom: 12px;
+
+    }
 
 
-                    const base64 =
-                        result.split(
-                            ','
-                        )[1];
+    .required {
+
+      color: #d93025;
+
+    }
 
 
-                    resolve({
+    .instruction {
 
-                        base64:
-                            base64,
+      background: #fff8e1;
 
-                        mimeType:
-                            blob.type
+      border-left: 5px solid #f0b400;
 
-                    });
+      padding: 15px 18px;
 
-                };
+      border-radius: 8px;
+
+      margin-bottom: 20px;
+
+      line-height: 1.6;
+
+    }
 
 
-            reader.onerror =
-                reject;
+    .instruction-title {
+
+      font-weight: 700;
+
+      margin-bottom: 5px;
+
+    }
 
 
-            reader.readAsDataURL(
-                blob
-            );
+    .statement {
 
-        }
+      background: #eef6ff;
+
+      border-left: 5px solid #4285f4;
+
+      padding: 20px;
+
+      border-radius: 8px;
+
+      margin-bottom: 25px;
+
+      line-height: 1.7;
+
+    }
+
+
+    .statement-title {
+
+      font-weight: 700;
+
+      margin-bottom: 10px;
+
+      color: #1a5fb4;
+
+    }
+
+
+    .choice-group {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+
+    }
+
+
+    .choice-option {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 12px 14px;
+
+      border: 1px solid #ddd;
+
+      border-radius: 9px;
+
+      cursor: pointer;
+
+    }
+
+
+    .choice-option:hover {
+
+      background: #f7f7f7;
+
+    }
+
+
+    .choice-option input {
+
+      width: auto;
+
+    }
+
+
+    .voice-box {
+
+      border: 1px solid #ddd;
+
+      border-radius: 12px;
+
+      padding: 15px;
+
+      background: #fafafa;
+
+    }
+
+
+    .voice-controls {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    button {
+
+      border: none;
+
+      border-radius: 8px;
+
+      padding: 11px 18px;
+
+      font-size: 14px;
+
+      cursor: pointer;
+
+      font-weight: 600;
+
+    }
+
+
+    .record-btn {
+
+      background: #222;
+
+      color: white;
+
+    }
+
+
+    .record-btn:hover {
+
+      opacity: 0.9;
+
+    }
+
+
+    .stop-btn {
+
+      background: #d93025;
+
+      color: white;
+
+    }
+
+
+    .stop-btn:disabled {
+
+      opacity: 0.45;
+
+      cursor: not-allowed;
+
+    }
+
+
+    .recording-indicator {
+
+      display: none;
+
+      color: #d93025;
+
+      font-weight: 600;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .timer {
+
+      font-family: monospace;
+
+      font-size: 18px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .audio-player {
+
+      width: 100%;
+
+      margin-top: 10px;
+
+    }
+
+
+    .transcript-label {
+
+      margin-top: 15px;
+
+    }
+
+
+    .transcript {
+
+      min-height: 90px;
+
+    }
+
+
+    .voice-status {
+
+      font-size: 13px;
+
+      color: #777;
+
+      margin-top: 8px;
+
+    }
+
+
+    .submit-area {
+
+      background: white;
+
+      padding: 25px;
+
+      border-radius: 16px;
+
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+
+      text-align: center;
+
+    }
+
+
+    .submit-btn {
+
+      background: #111;
+
+      color: white;
+
+      font-size: 16px;
+
+      padding: 14px 30px;
+
+    }
+
+
+    .submit-btn:disabled {
+
+      opacity: 0.5;
+
+      cursor: not-allowed;
+
+    }
+
+
+    .loading {
+
+      text-align: center;
+
+      padding: 50px;
+
+      color: #666;
+
+    }
+
+
+    .error {
+
+      background: #ffe9e9;
+
+      color: #a30000;
+
+      border-left: 5px solid #d93025;
+
+      padding: 15px;
+
+      border-radius: 8px;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .success {
+
+      background: #e8f5e9;
+
+      color: #1b5e20;
+
+      border-left: 5px solid #2e7d32;
+
+      padding: 20px;
+
+      border-radius: 8px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .recording-question {
+
+      border-color: #d93025;
+
+      background: #fffafa;
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 15px 12px 40px;
+      }
+
+
+      .header,
+      .respondent-card,
+      .section {
+
+        padding: 18px;
+
+      }
+
+
+      .header h1 {
+
+        font-size: 23px;
+
+      }
+
+
+      .question-text {
+
+        font-size: 16px;
+
+      }
+
+    }
+    </style>
+
+  </head>
+
+
+  <body>
+
+
+    <div class="container">
+
+
+      <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+      <div class="header">
+
+        <h1>
+          ⚽ KickStart Interview
+        </h1>
+
+        <p>
+          Interview Orang Tua
+        </p>
+
+        <p style="margin-top:8px;">
+          Silakan jawab pertanyaan berikut
+          sesuai dengan pengalaman Anda.
+        </p>
+
+      </div>
+
+
+      <!-- =====================================================
+         RESPONDENT
+         ===================================================== -->
+
+      <div class="respondent-card">
+
+        <h2>
+          Data Responden
+        </h2>
+
+
+        <div style="margin-bottom:18px;">
+
+          <label for="respondentName">
+
+            Nama Responden
+            <span class="required">*</span>
+
+          </label>
+
+          <input type="text" id="respondentName" placeholder="Masukkan nama responden" required>
+
+        </div>
+
+
+        <div>
+
+          <label for="respondentEmail">
+
+            Email
+
+          </label>
+
+          <input type="email" id="respondentEmail" placeholder="Email (opsional)">
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+         ERROR
+         ===================================================== -->
+
+      <div id="errorBox" class="error" style="display:none;"></div>
+
+
+      <!-- =====================================================
+         QUESTIONS
+         ===================================================== -->
+
+      <div id="surveyContainer">
+
+        <div class="loading">
+
+          Memuat pertanyaan...
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+         SUBMIT
+         ===================================================== -->
+
+      <div id="submitArea" class="submit-area" style="display:none;">
+
+        <p>
+          Semua jawaban sudah selesai?
+        </p>
+
+
+        <button id="submitBtn" class="submit-btn" onclick="submitSurvey()">
+
+          📤 Kirim Interview
+
+        </button>
+
+      </div>
+
+
+      <!-- =====================================================
+         SUCCESS
+         ===================================================== -->
+
+      <div id="successBox" class="success" style="display:none;"></div>
+
+
+    </div>
+
+
+    <script>
+    // ============================================================
+    // CONFIGURATION
+    // ============================================================
+    //
+    // GANTI URL DI BAWAH INI DENGAN URL WEB APP APPS SCRIPT
+    //
+    // Contoh:
+    // https://script.google.com/macros/s/XXXXXXXX/exec
+    //
+    // ============================================================
+
+    const API_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnSRdHnvKtGIpQpyZnulX4fES17GBbEUeKpaSFc1GU4mY7c39BGWP_l51t_TuU7Q8uZC0Cj38Gb9u3b3WQ754JKO8E1gS4ucik2dSf9wi5DncYB9-tKPnIyxcwqmp9OBSG5_lduOz-wYHq39acOeQmE8L41dyahNjHCQIp2o17SP3r2euyCy2nLPuRp1Rqolrpzph58RVq9HjWenN38-IAW_8ZQfJZ-kjeiZiv5IupOgzX897ypp92pTNuqHyaS7_Iasq9BArWW7lhfqG0y9p1Vk6dKlmQ&lib=MpDs3s5Y6BjC3pYikor-73fkvlQMpwx44';
+
+
+    // ============================================================
+    // GLOBAL STATE
+    // ============================================================
+
+    let questions = [];
+
+
+    // Semua jawaban
+    const answers = {};
+
+
+    // Semua transcript
+    const transcripts = {};
+
+
+    // Semua audio
+    const audioData = {};
+
+
+    // Rekaman aktif
+    let activeRecordingQuestion = null;
+
+
+    // MediaRecorder aktif
+    let activeRecorder = null;
+
+
+    // Audio chunks
+    let activeChunks = [];
+
+
+    // Timer
+    let recordingTimer = null;
+
+    let recordingSeconds = 0;
+
+
+    // Speech Recognition
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+
+    let recognition = null;
+
+
+    let recognitionQuestion = null;
+
+    let recognitionFinalText = '';
+
+    let recognitionInterimText = '';
+
+
+    // ============================================================
+    // INITIALIZE
+    // ============================================================
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      function() {
+
+        loadQuestions();
+
+      }
     );
 
-}
 
+    // ============================================================
+    // LOAD QUESTIONS
+    // ============================================================
 
-// =================================================
-// SUBMIT
-// =================================================
+    async function loadQuestions() {
 
-async function submitSurvey()
-{
-
-    const name =
+      const container =
         document.getElementById(
-            'name'
-        ).value.trim();
-
-
-    const email =
-        document.getElementById(
-            'email'
-        ).value.trim();
-
-
-    const q1 =
-        document.getElementById(
-            'q1'
-        ).value.trim();
-
-
-    const q2 =
-        document.getElementById(
-            'q2'
-        ).value.trim();
-
-
-    const q3 =
-        document.getElementById(
-            'q3'
-        ).value.trim();
-
-
-    const button =
-        document.getElementById(
-            'submitBtn'
+          'surveyContainer'
         );
 
 
-    // ---------------------------------------------
-    // Validation
-    // ---------------------------------------------
+      try {
 
-    if (!name) {
+        if (
+          !API_URL ||
+          API_URL.indexOf('PASTE_') === 0
+        ) {
 
-        alert(
-            'Nama wajib diisi.'
+          throw new Error(
+            'API_URL belum diisi.'
+          );
+
+        }
+
+
+        const response =
+          await fetch(
+            API_URL
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            'Gagal menghubungi API.'
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (!data.success) {
+
+          throw new Error(
+            data.message ||
+            data.error ||
+            'API mengembalikan error.'
+          );
+
+        }
+
+
+        questions =
+          data.questions || [];
+
+
+        if (!questions.length) {
+
+          throw new Error(
+            'Tidak ada pertanyaan aktif.'
+          );
+
+        }
+
+
+        renderSurvey();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        showError(
+          'Gagal memuat pertanyaan: ' +
+          error.message
         );
 
-        return;
+
+        container.innerHTML = '';
+
+      }
 
     }
 
 
-    if (
-        activeQuestion !== null
+    // ============================================================
+    // RENDER SURVEY
+    // ============================================================
+
+    function renderSurvey() {
+
+      const container =
+        document.getElementById(
+          'surveyContainer'
+        );
+
+
+      container.innerHTML = '';
+
+
+      let currentSection = null;
+
+      let sectionElement = null;
+
+
+      questions.forEach(
+        function(item) {
+
+
+          const elementType =
+            String(
+              item['Element Type'] || ''
+            )
+            .toLowerCase()
+            .trim();
+
+
+          // ------------------------------------------------
+          // SECTION
+          // ------------------------------------------------
+
+          if (
+            elementType === 'section'
+          ) {
+
+            currentSection =
+              item.Section;
+
+
+            sectionElement =
+              document.createElement(
+                'div'
+              );
+
+
+            sectionElement.className =
+              'section';
+
+
+            const title =
+              document.createElement(
+                'div'
+              );
+
+
+            title.className =
+              'section-title';
+
+
+            title.textContent =
+              item.Content;
+
+
+            sectionElement.appendChild(
+              title
+            );
+
+
+            container.appendChild(
+              sectionElement
+            );
+
+
+            return;
+
+          }
+
+
+          // ------------------------------------------------
+          // Safety:
+          // kalau belum ada section
+          // ------------------------------------------------
+
+          if (!sectionElement) {
+
+            sectionElement =
+              document.createElement(
+                'div'
+              );
+
+
+            sectionElement.className =
+              'section';
+
+
+            container.appendChild(
+              sectionElement
+            );
+
+          }
+
+
+          // ------------------------------------------------
+          // INSTRUCTION
+          // ------------------------------------------------
+
+          if (
+            elementType === 'instruction'
+          ) {
+
+            const box =
+              document.createElement(
+                'div'
+              );
+
+
+            box.className =
+              'instruction';
+
+
+            box.innerHTML = `
+
+                    <div class="instruction-title">
+
+                        🎤 Petunjuk Interviewer
+
+                    </div>
+
+                    <div>
+
+                        ${escapeHtml(
+                            item.Content
+                        )}
+
+                    </div>
+
+                `;
+
+
+            sectionElement.appendChild(
+              box
+            );
+
+
+            return;
+
+          }
+
+
+          // ------------------------------------------------
+          // STATEMENT
+          // ------------------------------------------------
+
+          if (
+            elementType === 'statement'
+          ) {
+
+            const box =
+              document.createElement(
+                'div'
+              );
+
+
+            box.className =
+              'statement';
+
+
+            box.innerHTML = `
+
+                    <div class="statement-title">
+
+                        📢 Bacakan kepada responden
+
+                    </div>
+
+                    <div>
+
+                        ${escapeHtml(
+                            item.Content
+                        )}
+
+                    </div>
+
+                `;
+
+
+            sectionElement.appendChild(
+              box
+            );
+
+
+            return;
+
+          }
+
+
+          // ------------------------------------------------
+          // QUESTION
+          // ------------------------------------------------
+
+          if (
+            elementType === 'question'
+          ) {
+
+            const questionElement =
+              createQuestion(
+                item
+              );
+
+
+            sectionElement.appendChild(
+              questionElement
+            );
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        'submitArea'
+      ).style.display = 'block';
+
+    }
+
+
+    // ============================================================
+    // CREATE QUESTION
+    // ============================================================
+
+    function createQuestion(
+      item
     ) {
 
-        alert(
-            'Silakan hentikan rekaman terlebih dahulu.'
+      const id =
+        item.ID;
+
+
+      const wrapper =
+        document.createElement(
+          'div'
         );
 
-        return;
+
+      wrapper.className =
+        'question';
+
+
+      wrapper.id =
+        'question-' + id;
+
+
+      const number =
+        item.Order;
+
+
+      const questionText =
+        item.Content;
+
+
+      const required =
+        Boolean(
+          item.Required
+        );
+
+
+      // --------------------------------------------------------
+      // Question label
+      // --------------------------------------------------------
+
+      const numberElement =
+        document.createElement(
+          'div'
+        );
+
+
+      numberElement.className =
+        'question-number';
+
+
+      numberElement.textContent =
+        'Pertanyaan ' + number;
+
+
+      wrapper.appendChild(
+        numberElement
+      );
+
+
+      // --------------------------------------------------------
+      // Question text
+      // --------------------------------------------------------
+
+      const textElement =
+        document.createElement(
+          'div'
+        );
+
+
+      textElement.className =
+        'question-text';
+
+
+      textElement.innerHTML =
+        escapeHtml(
+          questionText
+        ) +
+        (
+          required ?
+          ' <span class="required">*</span>' :
+          ''
+        );
+
+
+      wrapper.appendChild(
+        textElement
+      );
+
+
+      // --------------------------------------------------------
+      // Input type
+      // --------------------------------------------------------
+
+      const inputType =
+        String(
+          item['Input Type'] || 'text'
+        )
+        .toLowerCase()
+        .trim();
+
+
+      // --------------------------------------------------------
+      // CHOICE
+      // --------------------------------------------------------
+
+      if (
+        inputType === 'choice'
+      ) {
+
+        renderChoice(
+          wrapper,
+          item
+        );
+
+      }
+
+
+      // --------------------------------------------------------
+      // VOICE
+      // --------------------------------------------------------
+      else if (
+        inputType === 'voice'
+      ) {
+
+        renderVoice(
+          wrapper,
+          item
+        );
+
+      }
+
+
+      // --------------------------------------------------------
+      // NUMBER
+      // --------------------------------------------------------
+      else if (
+        inputType === 'number'
+      ) {
+
+        const input =
+          document.createElement(
+            'input'
+          );
+
+
+        input.type =
+          'number';
+
+
+        input.id =
+          'input-' + id;
+
+
+        input.dataset.questionId =
+          id;
+
+
+        input.addEventListener(
+          'input',
+          function() {
+
+            answers[id] =
+              input.value;
+
+          }
+        );
+
+
+        wrapper.appendChild(
+          input
+        );
+
+      }
+
+
+      // --------------------------------------------------------
+      // CURRENCY
+      // --------------------------------------------------------
+      else if (
+        inputType === 'currency'
+      ) {
+
+        const input =
+          document.createElement(
+            'input'
+          );
+
+
+        input.type =
+          'number';
+
+
+        input.min =
+          '0';
+
+
+        input.step =
+          '1000';
+
+
+        input.placeholder =
+          'Contoh: 59000';
+
+
+        input.id =
+          'input-' + id;
+
+
+        input.addEventListener(
+          'input',
+          function() {
+
+            answers[id] =
+              input.value;
+
+          }
+        );
+
+
+        wrapper.appendChild(
+          input
+        );
+
+      }
+
+
+      // --------------------------------------------------------
+      // TEXT
+      // --------------------------------------------------------
+      else {
+
+        const input =
+          document.createElement(
+            'textarea'
+          );
+
+
+        input.id =
+          'input-' + id;
+
+
+        input.placeholder =
+          'Masukkan jawaban...';
+
+
+        input.addEventListener(
+          'input',
+          function() {
+
+            answers[id] =
+              input.value;
+
+          }
+        );
+
+
+        wrapper.appendChild(
+          input
+        );
+
+
+        // ----------------------------------------------------
+        // Kalau Voice = TRUE
+        // tampilkan recording juga
+        // ----------------------------------------------------
+
+        if (
+          item.Voice === true
+        ) {
+
+          renderVoiceControls(
+            wrapper,
+            item
+          );
+
+        }
+
+      }
+
+
+      return wrapper;
 
     }
 
 
-    if (
-        !q1 &&
-        !recordings[1]
+    // ============================================================
+    // RENDER CHOICE
+    // ============================================================
+
+    function renderChoice(
+      wrapper,
+      item
     ) {
 
-        alert(
-            'Silakan jawab pertanyaan nomor 1.'
+      const id =
+        item.ID;
+
+
+      const group =
+        document.createElement(
+          'div'
         );
 
-        return;
+
+      group.className =
+        'choice-group';
+
+
+      const options =
+        String(
+          item.Options || ''
+        )
+        .split(',')
+        .map(
+          function(option) {
+
+            return option.trim();
+
+          }
+        )
+        .filter(
+          Boolean
+        );
+
+
+      options.forEach(
+        function(option, index) {
+
+          const label =
+            document.createElement(
+              'label'
+            );
+
+
+          label.className =
+            'choice-option';
+
+
+          const radio =
+            document.createElement(
+              'input'
+            );
+
+
+          radio.type =
+            'radio';
+
+
+          radio.name =
+            'choice-' + id;
+
+
+          radio.value =
+            option;
+
+
+          radio.addEventListener(
+            'change',
+            function() {
+
+              if (
+                radio.checked
+              ) {
+
+                answers[id] =
+                  radio.value;
+
+              }
+
+            }
+          );
+
+
+          label.appendChild(
+            radio
+          );
+
+
+          const text =
+            document.createElement(
+              'span'
+            );
+
+
+          text.textContent =
+            option;
+
+
+          label.appendChild(
+            text
+          );
+
+
+          group.appendChild(
+            label
+          );
+
+        }
+      );
+
+
+      wrapper.appendChild(
+        group
+      );
+
+
+      // --------------------------------------------------------
+      // Voice tambahan jika diperlukan
+      // --------------------------------------------------------
+
+      if (
+        item.Voice === true
+      ) {
+
+        renderVoiceControls(
+          wrapper,
+          item
+        );
+
+      }
 
     }
 
 
-    // ---------------------------------------------
-    // Disable
-    // ---------------------------------------------
+    // ============================================================
+    // RENDER VOICE
+    // ============================================================
 
-    button.disabled =
-        true;
+    function renderVoice(
+      wrapper,
+      item
+    ) {
 
+      renderVoiceControls(
+        wrapper,
+        item
+      );
 
-    button.innerText =
-        '⏳ Mengirim...';
-
-
-    try {
-
-
-        // -----------------------------------------
-        // Audio
-        // -----------------------------------------
-
-        let audioQ1 =
-            null;
-
-        let audioQ2 =
-            null;
-
-        let audioQ3 =
-            null;
+    }
 
 
-        if (
-            recordings[1]
-        ) {
+    // ============================================================
+    // RENDER VOICE CONTROLS
+    // ============================================================
 
-            audioQ1 =
-                await blobToBase64(
-                    recordings[1]
-                );
+    function renderVoiceControls(
+      wrapper,
+      item
+    ) {
 
-        }
-
-
-        if (
-            recordings[2]
-        ) {
-
-            audioQ2 =
-                await blobToBase64(
-                    recordings[2]
-                );
-
-        }
+      const id =
+        item.ID;
 
 
-        if (
-            recordings[3]
-        ) {
-
-            audioQ3 =
-                await blobToBase64(
-                    recordings[3]
-                );
-
-        }
+      const box =
+        document.createElement(
+          'div'
+        );
 
 
-        // -----------------------------------------
-        // Payload
-        // -----------------------------------------
+      box.className =
+        'voice-box';
 
-        const payload = {
 
-            name:
-                name,
+      box.id =
+        'voice-box-' + id;
 
-            email:
-                email,
 
-            q1:
-                q1,
+      // --------------------------------------------------------
+      // Controls
+      // --------------------------------------------------------
 
-            q2:
-                q2,
+      const controls =
+        document.createElement(
+          'div'
+        );
 
-            q3:
-                q3,
 
-            audioQ1:
-                audioQ1,
+      controls.className =
+        'voice-controls';
 
-            audioQ2:
-                audioQ2,
 
-            audioQ3:
-                audioQ3
+      const startButton =
+        document.createElement(
+          'button'
+        );
+
+
+      startButton.type =
+        'button';
+
+
+      startButton.className =
+        'record-btn';
+
+
+      startButton.textContent =
+        '🎙️ Mulai Rekam';
+
+
+      startButton.onclick =
+        function() {
+
+          startRecording(
+            id
+          );
 
         };
 
 
-        // -----------------------------------------
-        // Send
-        // -----------------------------------------
+      controls.appendChild(
+        startButton
+      );
 
-        await fetch(
-            API_URL,
-            {
 
-                method:
-                    'POST',
+      const stopButton =
+        document.createElement(
+          'button'
+        );
 
-                mode:
-                    'no-cors',
 
-                headers: {
+      stopButton.type =
+        'button';
 
-                    'Content-Type':
-                        'text/plain;charset=utf-8'
 
-                },
+      stopButton.className =
+        'stop-btn';
 
-                body:
-                    JSON.stringify(
-                        payload
-                    )
+
+      stopButton.textContent =
+        '⏹ Stop';
+
+
+      stopButton.disabled =
+        true;
+
+
+      stopButton.id =
+        'stop-' + id;
+
+
+      stopButton.onclick =
+        function() {
+
+          stopRecording(
+            id
+          );
+
+        };
+
+
+      controls.appendChild(
+        stopButton
+      );
+
+
+      box.appendChild(
+        controls
+      );
+
+
+      // --------------------------------------------------------
+      // Recording indicator
+      // --------------------------------------------------------
+
+      const indicator =
+        document.createElement(
+          'div'
+        );
+
+
+      indicator.className =
+        'recording-indicator';
+
+
+      indicator.id =
+        'recording-indicator-' + id;
+
+
+      indicator.textContent =
+        '🔴 Sedang merekam...';
+
+
+      box.appendChild(
+        indicator
+      );
+
+
+      // --------------------------------------------------------
+      // Timer
+      // --------------------------------------------------------
+
+      const timer =
+        document.createElement(
+          'div'
+        );
+
+
+      timer.className =
+        'timer';
+
+
+      timer.id =
+        'timer-' + id;
+
+
+      timer.textContent =
+        '00:00';
+
+
+      box.appendChild(
+        timer
+      );
+
+
+      // --------------------------------------------------------
+      // Audio
+      // --------------------------------------------------------
+
+      const audio =
+        document.createElement(
+          'audio'
+        );
+
+
+      audio.controls =
+        true;
+
+
+      audio.className =
+        'audio-player';
+
+
+      audio.id =
+        'audio-' + id;
+
+
+      audio.style.display =
+        'none';
+
+
+      box.appendChild(
+        audio
+      );
+
+
+      // --------------------------------------------------------
+      // Transcript
+      // --------------------------------------------------------
+
+      const transcriptLabel =
+        document.createElement(
+          'label'
+        );
+
+
+      transcriptLabel.className =
+        'transcript-label';
+
+
+      transcriptLabel.textContent =
+        '📝 Hasil Transkripsi';
+
+
+      box.appendChild(
+        transcriptLabel
+      );
+
+
+      const transcript =
+        document.createElement(
+          'textarea'
+        );
+
+
+      transcript.className =
+        'transcript';
+
+
+      transcript.id =
+        'transcript-' + id;
+
+
+      transcript.placeholder =
+        'Hasil suara akan muncul di sini. Transcript dapat diedit.';
+
+
+      transcript.addEventListener(
+        'input',
+        function() {
+
+          transcripts[id] =
+            transcript.value;
+
+        }
+      );
+
+
+      box.appendChild(
+        transcript
+      );
+
+
+      // --------------------------------------------------------
+      // Status
+      // --------------------------------------------------------
+
+      const status =
+        document.createElement(
+          'div'
+        );
+
+
+      status.className =
+        'voice-status';
+
+
+      status.id =
+        'voice-status-' + id;
+
+
+      status.textContent =
+        'Belum ada rekaman.';
+
+
+      box.appendChild(
+        status
+      );
+
+
+      wrapper.appendChild(
+        box
+      );
+
+    }
+
+
+    // ============================================================
+    // START RECORDING
+    // ============================================================
+
+    async function startRecording(
+      questionId
+    ) {
+
+      // --------------------------------------------------------
+      // Stop recording lain
+      // --------------------------------------------------------
+
+      if (
+        activeRecorder &&
+        activeRecorder.state !== 'inactive'
+      ) {
+
+        alert(
+          'Selesaikan rekaman yang sedang berjalan terlebih dahulu.'
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        // ----------------------------------------------------
+        // Microphone
+        // ----------------------------------------------------
+
+        const stream =
+          await navigator.mediaDevices
+          .getUserMedia({
+            audio: true
+          });
+
+
+        // ----------------------------------------------------
+        // MediaRecorder
+        // ----------------------------------------------------
+
+        let mimeType =
+          'audio/webm';
+
+
+        if (
+          !MediaRecorder.isTypeSupported(
+            'audio/webm'
+          )
+        ) {
+
+          mimeType =
+            '';
+
+        }
+
+
+        activeRecorder =
+          mimeType ?
+          new MediaRecorder(
+            stream, {
+              mimeType: mimeType
+            }
+          ) :
+          new MediaRecorder(
+            stream
+          );
+
+
+        activeChunks = [];
+
+
+        activeRecordingQuestion =
+          questionId;
+
+
+        activeRecorder.ondataavailable =
+          function(event) {
+
+            if (
+              event.data &&
+              event.data.size > 0
+            ) {
+
+              activeChunks.push(
+                event.data
+              );
 
             }
+
+          };
+
+
+        activeRecorder.onstop =
+          function() {
+
+            finishRecording(
+              questionId,
+              stream
+            );
+
+          };
+
+
+        activeRecorder.start();
+
+
+        // ----------------------------------------------------
+        // UI
+        // ----------------------------------------------------
+
+        setRecordingUI(
+          questionId,
+          true
         );
 
 
-        // -----------------------------------------
-        // Success
-        // -----------------------------------------
+        // ----------------------------------------------------
+        // Timer
+        // ----------------------------------------------------
 
-        showMessage(
-            'success',
-            '✅ Survey berhasil dikirim. Terima kasih!'
+        startTimer(
+          questionId
         );
 
 
-        button.innerText =
-            '✓ Terkirim';
+        // ----------------------------------------------------
+        // Speech recognition
+        // ----------------------------------------------------
 
-
-        // Reset
-
-        resetForm();
-
-
-    } catch (error) {
-
-
-        console.error(
-            error
+        startSpeechRecognition(
+          questionId
         );
 
 
-        showMessage(
-            'error',
-            '❌ Gagal mengirim survey. Silakan coba lagi.'
+      } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+          'Tidak dapat mengakses microphone.\n\n' +
+          'Pastikan browser mengizinkan microphone.'
         );
 
-
-        button.disabled =
-            false;
-
-
-        button.innerText =
-            '📤 Kirim Survey';
+      }
 
     }
 
-}
+
+    // ============================================================
+    // STOP RECORDING
+    // ============================================================
+
+    function stopRecording(
+      questionId
+    ) {
+
+      if (
+        !activeRecorder ||
+        activeRecorder.state === 'inactive'
+      ) {
+
+        return;
+
+      }
 
 
-// =================================================
-// SHOW MESSAGE
-// =================================================
+      // Stop speech recognition
+      stopSpeechRecognition();
 
-function showMessage(
-    type,
-    text
-) {
 
-    const message =
-        document.getElementById(
-            'message'
+      activeRecorder.stop();
+
+
+    }
+
+
+    // ============================================================
+    // FINISH RECORDING
+    // ============================================================
+
+    function finishRecording(
+      questionId,
+      stream
+    ) {
+
+      const mimeType =
+        activeRecorder &&
+        activeRecorder.mimeType ?
+        activeRecorder.mimeType :
+        'audio/webm';
+
+
+      const blob =
+        new Blob(
+          activeChunks, {
+            type: mimeType
+          }
         );
 
 
-    message.className =
-        'message ' +
-        type;
+      // Stop microphone tracks
+      stream
+        .getTracks()
+        .forEach(
+          function(track) {
+
+            track.stop();
+
+          }
+        );
 
 
-    message.innerText =
-        text;
+      // --------------------------------------------------------
+      // Create playback
+      // --------------------------------------------------------
+
+      const audio =
+        document.getElementById(
+          'audio-' + questionId
+        );
 
 
-    message.style.display =
+      const audioUrl =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      audio.src =
+        audioUrl;
+
+
+      audio.style.display =
         'block';
 
-}
+
+      // --------------------------------------------------------
+      // Convert audio → Base64
+      // --------------------------------------------------------
+
+      blobToBase64(
+          blob
+        )
+        .then(
+          function(base64) {
+
+            audioData[
+              questionId
+            ] = {
+
+              base64: base64,
+
+              mimeType: blob.type ||
+                'audio/webm'
+
+            };
 
 
-// =================================================
-// RESET
-// =================================================
-function resetForm() {
-    document.getElementById('name').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('q1').value = '';
-    document.getElementById('q2').value = '';
-    document.getElementById('q3').value = '';
+            document.getElementById(
+                'voice-status-' +
+                questionId
+              ).textContent =
+              'Rekaman siap dikirim.';
 
-    for ( let i = 1; i <= 3; i++ ) {
-        recordings[i] = null;
-        document.getElementById(
-            'audio' + i
-        ).style.display = 'none';
-        document.getElementById(
-            'timer' + i
-        ).innerText = '00:00';
-        document.getElementById(
-            'status' + i
-        ).innerText = 'Belum ada rekaman';
+          }
+        );
+
+
+      // --------------------------------------------------------
+      // UI
+      // --------------------------------------------------------
+
+      setRecordingUI(
+        questionId,
+        false
+      );
+
+
+      stopTimer();
+
+
+      activeRecorder =
+        null;
+
+
+      activeChunks = [];
+
+
+      activeRecordingQuestion =
+        null;
+
     }
-}
-</script>
-</body>
+
+
+    // ============================================================
+    // BLOB → BASE64
+    // ============================================================
+
+    function blobToBase64(
+      blob
+    ) {
+
+      return new Promise(
+        function(resolve, reject) {
+
+          const reader =
+            new FileReader();
+
+
+          reader.onloadend =
+            function() {
+
+              const result =
+                reader.result;
+
+
+              const base64 =
+                result.split(
+                  ','
+                )[1];
+
+
+              resolve(
+                base64
+              );
+
+            };
+
+
+          reader.onerror =
+            reject;
+
+
+          reader.readAsDataURL(
+            blob
+          );
+
+        }
+      );
+
+    }
+
+
+    // ============================================================
+    // RECORDING UI
+    // ============================================================
+
+    function setRecordingUI(
+      questionId,
+      recording
+    ) {
+
+      const box =
+        document.getElementById(
+          'voice-box-' +
+          questionId
+        );
+
+
+      const stopButton =
+        document.getElementById(
+          'stop-' +
+          questionId
+        );
+
+
+      const indicator =
+        document.getElementById(
+          'recording-indicator-' +
+          questionId
+        );
+
+
+      const startButton =
+        box.querySelector(
+          '.record-btn'
+        );
+
+
+      if (recording) {
+
+        box.classList.add(
+          'recording-question'
+        );
+
+
+        startButton.disabled =
+          true;
+
+
+        stopButton.disabled =
+          false;
+
+
+        indicator.style.display =
+          'block';
+
+      } else {
+
+        box.classList.remove(
+          'recording-question'
+        );
+
+
+        startButton.disabled =
+          false;
+
+
+        stopButton.disabled =
+          true;
+
+
+        indicator.style.display =
+          'none';
+
+      }
+
+    }
+
+
+    // ============================================================
+    // TIMER
+    // ============================================================
+
+    function startTimer(
+      questionId
+    ) {
+
+      recordingSeconds =
+        0;
+
+
+      const timer =
+        document.getElementById(
+          'timer-' +
+          questionId
+        );
+
+
+      timer.textContent =
+        '00:00';
+
+
+      recordingTimer =
+        setInterval(
+          function() {
+
+            recordingSeconds++;
+
+
+            const minutes =
+              Math.floor(
+                recordingSeconds / 60
+              );
+
+
+            const seconds =
+              recordingSeconds % 60;
+
+
+            timer.textContent =
+              String(minutes)
+              .padStart(2, '0') +
+              ':' +
+              String(seconds)
+              .padStart(2, '0');
+
+
+            // Maximum 120 seconds
+
+            if (
+              recordingSeconds >= 120
+            ) {
+
+              stopRecording(
+                questionId
+              );
+
+            }
+
+          },
+          1000
+        );
+
+    }
+
+
+    function stopTimer() {
+
+      if (
+        recordingTimer
+      ) {
+
+        clearInterval(
+          recordingTimer
+        );
+
+        recordingTimer =
+          null;
+
+      }
+
+    }
+
+
+    // ============================================================
+    // SPEECH RECOGNITION
+    // ============================================================
+
+    function startSpeechRecognition(
+      questionId
+    ) {
+
+      if (!SpeechRecognition) {
+
+        console.warn(
+          'Speech Recognition tidak didukung browser.'
+        );
+
+        return;
+
+      }
+
+
+      recognitionQuestion =
+        questionId;
+
+
+      recognitionFinalText =
+        '';
+
+
+      recognitionInterimText =
+        '';
+
+
+      recognition =
+        new SpeechRecognition();
+
+
+      recognition.lang =
+        'id-ID';
+
+
+      recognition.continuous =
+        true;
+
+
+      recognition.interimResults =
+        true;
+
+
+      recognition.maxAlternatives =
+        1;
+
+
+      recognition.onresult =
+        function(event) {
+
+          let finalText =
+            recognitionFinalText;
+
+
+          let interimText =
+            '';
+
+
+          for (
+            let i =
+              event.resultIndex; i <
+            event.results.length; i++
+          ) {
+
+            const result =
+              event.results[i];
+
+
+            const text =
+              result[0]
+              .transcript;
+
+
+            if (
+              result.isFinal
+            ) {
+
+              finalText +=
+                text + ' ';
+
+            } else {
+
+              interimText +=
+                text;
+
+            }
+
+          }
+
+
+          recognitionFinalText =
+            finalText;
+
+
+          recognitionInterimText =
+            interimText;
+
+
+          const textarea =
+            document.getElementById(
+              'transcript-' +
+              questionId
+            );
+
+
+          if (textarea) {
+
+            textarea.value =
+              (
+                recognitionFinalText +
+                recognitionInterimText
+              ).trim();
+
+
+            transcripts[
+                questionId
+              ] =
+              textarea.value;
+
+          }
+
+        };
+
+
+      recognition.onerror =
+        function(event) {
+
+          console.warn(
+            'Speech recognition error:',
+            event.error
+          );
+
+        };
+
+
+      recognition.onend =
+        function() {
+
+          // Jangan restart kalau sudah stop
+          if (
+            activeRecordingQuestion ===
+            questionId &&
+            activeRecorder &&
+            activeRecorder.state !==
+            'inactive'
+          ) {
+
+            try {
+
+              recognition.start();
+
+            } catch (error) {
+
+              console.warn(
+                error
+              );
+
+            }
+
+          }
+
+        };
+
+
+      try {
+
+        recognition.start();
+
+      } catch (error) {
+
+        console.warn(
+          error
+        );
+
+      }
+
+    }
+
+
+    // ============================================================
+    // STOP SPEECH RECOGNITION
+    // ============================================================
+
+    function stopSpeechRecognition() {
+
+      if (
+        recognition
+      ) {
+
+        try {
+
+          recognition.onend =
+            null;
+
+
+          recognition.stop();
+
+        } catch (error) {
+
+          console.warn(
+            error
+          );
+
+        }
+
+      }
+
+
+      recognition =
+        null;
+
+
+      recognitionQuestion =
+        null;
+
+    }
+
+
+    // ============================================================
+    // SUBMIT SURVEY
+    // ============================================================
+
+    async function submitSurvey() {
+
+      const name =
+        document
+        .getElementById(
+          'respondentName'
+        )
+        .value
+        .trim();
+
+
+      const email =
+        document
+        .getElementById(
+          'respondentEmail'
+        )
+        .value
+        .trim();
+
+
+      // --------------------------------------------------------
+      // Name validation
+      // --------------------------------------------------------
+
+      if (!name) {
+
+        alert(
+          'Nama responden wajib diisi.'
+        );
+
+
+        document
+          .getElementById(
+            'respondentName'
+          )
+          .focus();
+
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Stop active recording
+      // --------------------------------------------------------
+
+      if (
+        activeRecorder &&
+        activeRecorder.state !== 'inactive'
+      ) {
+
+        alert(
+          'Masih ada rekaman yang sedang berjalan. ' +
+          'Silakan tekan Stop terlebih dahulu.'
+        );
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Validate required questions
+      // --------------------------------------------------------
+
+      const missing = [];
+
+
+      questions.forEach(
+        function(item) {
+
+          if (
+            item['Element Type'] !==
+            'question'
+          ) {
+
+            return;
+
+          }
+
+
+          if (
+            item.Required !== true
+          ) {
+
+            return;
+
+          }
+
+
+          const id =
+            item.ID;
+
+
+          const inputType =
+            String(
+              item['Input Type'] || ''
+            )
+            .toLowerCase()
+            .trim();
+
+
+          let value =
+            answers[id] || '';
+
+
+          // Choice
+          if (
+            inputType === 'choice'
+          ) {
+
+            value =
+              answers[id] || '';
+
+          }
+
+
+          // Voice
+          if (
+            inputType === 'voice'
+          ) {
+            value = transcripts[id] ||
+            (
+                audioData[id]
+                ? 'voice'
+                : ''
+            );
+          }
+
+
+          if (
+            !String(value).trim()
+          ) {
+
+            missing.push(
+              id
+            );
+
+          }
+
+        }
+      );
+
+
+      if (
+        missing.length > 0
+      ) {
+
+        alert(
+          'Masih ada pertanyaan wajib yang belum dijawab:\n\n' +
+          missing.join(', ')
+        );
+
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Confirmation
+      // --------------------------------------------------------
+
+      const confirmed =
+        confirm(
+          'Kirim hasil interview sekarang?'
+        );
+
+
+      if (!confirmed) {
+
+        return;
+
+      }
+
+
+      const submitButton =
+        document.getElementById(
+          'submitBtn'
+        );
+
+
+      submitButton.disabled =
+        true;
+
+
+      submitButton.textContent =
+        '⏳ Mengirim...';
+
+
+      // --------------------------------------------------------
+      // Payload
+      // --------------------------------------------------------
+
+      const payload = {
+
+        name: name,
+
+        email: email,
+
+        answers: answers,
+
+        transcripts: transcripts,
+
+        audio: audioData
+
+      };
+
+
+      try {
+
+        /*
+         * Menggunakan no-cors agar request POST
+         * dapat dikirim dari GitHub Pages ke
+         * Google Apps Script.
+         *
+         * Karena no-cors:
+         * browser tidak dapat membaca response JSON.
+         */
+
+        await fetch(
+          API_URL, {
+
+            method: 'POST',
+
+            mode: 'no-cors',
+
+            headers: {
+
+              'Content-Type': 'text/plain;charset=utf-8'
+
+            },
+
+            body: JSON.stringify(
+              payload
+            )
+
+          }
+        );
+
+
+        // ----------------------------------------------------
+        // Success
+        // ----------------------------------------------------
+
+        document
+          .getElementById(
+            'surveyContainer'
+          )
+          .style.display =
+          'none';
+
+
+        document
+          .getElementById(
+            'submitArea'
+          )
+          .style.display =
+          'none';
+
+
+        const successBox =
+          document.getElementById(
+            'successBox'
+          );
+
+
+        successBox.style.display =
+          'block';
+
+
+        successBox.innerHTML = `
+
+            <h2>
+                ✅ Interview Berhasil Dikirim
+            </h2>
+
+            <p>
+                Terima kasih.
+                Data interview telah dikirim.
+            </p>
+
+            <p>
+                Anda dapat menutup halaman ini.
+            </p>
+
+        `;
+
+
+        window.scrollTo(
+          0,
+          0
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        submitButton.disabled =
+          false;
+
+
+        submitButton.textContent =
+          '📤 Kirim Interview';
+
+
+        showError(
+          'Gagal mengirim interview: ' +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ============================================================
+    // SHOW ERROR
+    // ============================================================
+
+    function showError(
+      message
+    ) {
+
+      const box =
+        document.getElementById(
+          'errorBox'
+        );
+
+
+      box.textContent =
+        message;
+
+
+      box.style.display =
+        'block';
+
+    }
+
+
+    // ============================================================
+    // HTML ESCAPE
+    // ============================================================
+
+    function escapeHtml(
+      text
+    ) {
+
+      return String(text || '')
+        .replace(
+          /&/g,
+          '&amp;'
+        )
+        .replace(
+          /</g,
+          '&lt;'
+        )
+        .replace(
+          />/g,
+          '&gt;'
+        )
+        .replace(
+          /"/g,
+          '&quot;'
+        )
+        .replace(
+          /'/g,
+          '&#039;'
+        );
+
+    }
+    </script>
+
+
+  </body>
 
 </html>
